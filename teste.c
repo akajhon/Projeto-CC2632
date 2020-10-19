@@ -43,6 +43,8 @@ int main(void) {
 
 
  printf("%d", numerosDistintos(v, n));
+ puts("ALTEREI AQUI");
+ puts("O Jô passou por aqui....")
 
   return 0;
 }
