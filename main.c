@@ -45,11 +45,7 @@ int sair(){
 }
 
 //Função de inserção
-<<<<<<< HEAD
 int inserir(struct Receita * p){
-=======
-int inserir(){
->>>>>>> 0c0d2d7b67a4fb351d1f582547ae3de5e4ef254c
   int op;
   struct Receita Receita;
   struct Data DataReceita;
@@ -79,22 +75,14 @@ int inserir(){
             scanf("%d/%d/%d", &DataGasto.dia, &DataGasto.mes, &DataGasto.ano);
         }
 
-<<<<<<< HEAD
     puts("Digite a categoria: (moradia, alimentacao, lazer, transporte, estudos, compras, trabalho)");
     scanf("%s", Gasto.categoria);
 
       while ((strcmp(Gasto.categoria, "moradia") != 0) && (strcmp(Gasto.categoria, "alimentacao") != 0) && (strcmp(Gasto.categoria, "lazer") != 0) && (strcmp(Gasto.categoria, "transporte") != 0) && (strcmp(Gasto.categoria, "estudos") != 0) && (strcmp(Gasto.categoria, "compras") != 0) && (strcmp(Gasto.categoria, "trabalho") != 0)){
-=======
-    puts("Digite a categoria: (Moradia, Alimentação, Lazer, Transporte, Estudos, Compras, Trabalho)");
-    scanf("%s", Gasto.categoria);
-
-      while ((strcmp(Gasto.categoria, "Moradia") != 0) && (strcmp(Gasto.categoria, "Alimentação") != 0) && (strcmp(Gasto.categoria, "Lazer") != 0) && (strcmp(Gasto.categoria, "Transporte") != 0) && (strcmp(Gasto.categoria, "Estudos") != 0) && (strcmp(Gasto.categoria, "Compras") != 0) && (strcmp(Gasto.categoria, "Trabalho") != 0)){
->>>>>>> 0c0d2d7b67a4fb351d1f582547ae3de5e4ef254c
             puts("Categoria inválida! Tente novamente...");
             scanf("%s", Gasto.categoria);
       }
     puts(" ");
-<<<<<<< HEAD
     //Ponteiros:
     p->valor = p->valor+(-1*Gasto.valor);
     p->data.dia = DataGasto.dia;
@@ -109,8 +97,6 @@ int inserir(){
     fclose(f);
     //p->categoria[200] = Gasto.categoria;
 
-=======
->>>>>>> 0c0d2d7b67a4fb351d1f582547ae3de5e4ef254c
     puts("Gasto registrado com sucesso!");
     puts("===============================");
   }
@@ -125,18 +111,13 @@ int inserir(){
             puts("Data inválida! Tente novamente...");
             scanf("%d/%d/%d", &DataReceita.dia, &DataReceita.mes, &DataReceita.ano);
         }
-<<<<<<< HEAD
     puts("Digite a categoria: (moradia, alimentação, lazer, transporte, estudos, compras, trabalho)");
-=======
-    puts("Digite a categoria: (Moradia, Alimentação, Lazer, Transporte, Estudos, Compras, Trabalho)");
->>>>>>> 0c0d2d7b67a4fb351d1f582547ae3de5e4ef254c
     scanf("%s", Receita.categoria);
 
       while ((strcmp(Receita.categoria, "moradia") != 0) && (strcmp(Receita.categoria, "alimentação") != 0) && (strcmp(Receita.categoria, "lazer") != 0) && (strcmp(Receita.categoria, "transporte") != 0) && (strcmp(Receita.categoria, "estudos") != 0) && (strcmp(Receita.categoria, "compras") != 0) && (strcmp(Receita.categoria, "trabalho") != 0)){
             puts("Categoria inválida! Tente novamente...");
             scanf("%s", Receita.categoria);
     }
-<<<<<<< HEAD
     puts(" ");
     //Ponteiros:
     p->valor = p->valor+(Receita.valor);
@@ -154,34 +135,12 @@ int inserir(){
     puts("Receita registrada com sucesso!");
     puts("=================================");
   }
-=======
-
-    puts(" ");
-    puts("Receita registrada com sucesso!");
-    puts("=================================");
-  }
-
->>>>>>> 0c0d2d7b67a4fb351d1f582547ae3de5e4ef254c
   return 0;
 }
 
 //Função para o relatorio
 int relatorio(){
-<<<<<<< HEAD
   puts("Relatório Pronto!");
-=======
-  puts("Relatório Pronto");
-  return 0;
-}
-
-//Função para exibir o saldo
-int saldo(){
-  double Saldo;
-  struct Receita Gasto;
-  struct Receita Receita;
-  Saldo = Receita.valor - Gasto.valor;
-  printf("Seu Saldo Atual é: R$ %.2lf \n", Saldo);
->>>>>>> 0c0d2d7b67a4fb351d1f582547ae3de5e4ef254c
   return 0;
 }
 
@@ -225,10 +184,7 @@ int main(void) {
   int selecionar = 0;
 
   while(selecionar<5 || selecionar>0 ){
-<<<<<<< HEAD
     struct Receita Receita;
-=======
->>>>>>> 0c0d2d7b67a4fb351d1f582547ae3de5e4ef254c
     menu();
     puts("Digite sua opção!!!");
     scanf("%d", &selecionar);
@@ -238,14 +194,8 @@ int main(void) {
       break;
     }
 
-<<<<<<< HEAD
     else if(selecionar == 1){
       inserir(&Receita);
-=======
-    if(selecionar == 1){
-      inserir();
-
->>>>>>> 0c0d2d7b67a4fb351d1f582547ae3de5e4ef254c
     }
 
     else if(selecionar == 2){
