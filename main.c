@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -19,7 +20,6 @@ struct Receita{
 };
 
 
-
 //FIM DA ZONA!!!!!!!!!!!
 
 
@@ -33,7 +33,7 @@ puts("0 - Sair\n"); //ok
 puts("1 - Inserir\n"); //ok
 puts("2 - Relatório\n");
 puts("3 - Saldo\n"); //ok
-puts("4 - Excluir\n");
+puts("4 - Excluir\n");//ok
 puts("5 - Extrato de todas as movimentações\n"); //ok
 puts("6 - Buscar um registro específico");
 puts("=================================\n");
@@ -149,7 +149,7 @@ int relatorio(){
 }
 
 //Função para excluir um registro
-int excluir(){
+int excluir(struct Receita * p){
   puts("");
   int op;
   puts("Voce deseja remover um registro ou todos os dados?");
@@ -164,8 +164,9 @@ int excluir(){
     int i=0;
     int j=0;
     int k=0;
+    float valor;
     char conf[5];
-    puts("Digite a data do registro:");
+    puts("Digite a data do registro(dd/mm/aa):");
     scanf("%s",data);
     puts("");
     FILE *arq;
@@ -185,28 +186,34 @@ int excluir(){
         puts("");
         puts("Deseja excluir o registro encontrado? (s/n)");
         scanf("%s",conf);
+        valor=atof(aux[j+2]);
         if (strcmp(conf,"s") == 0){
               FILE * arq2;
               arq2 = fopen("extrato.txt","w");
-              for(k=0;k!=i;k++){
+              for(k=0;k<i;k++){
                 if(j==k){
                   if(k+3>i){
-                    k=k-4;
                     break;
                   }
-                  printf("%d",i);
                   k=k+3;
                 }
                 fprintf(arq2, "%s", aux[k]);
               }
               fclose(arq2);
               puts("Registro excluído com sucesso!!!");
+              p->valor=p->valor-valor;
 
         }
+        else if(strcmp(conf,"n") == 0){
+          puts("Buscando outro registro na data informada...Caso nenhum seja encontrado, você retornará ao menu...\n");
+          sleep(2);
+        }
         else{
-          puts("Retornando ao menu...");
+          puts("Comando inválido, voltando ao menu...");
+          sleep(2);
           break;
         }
+
         }
         }
 
@@ -245,18 +252,40 @@ void busca(){
 
 }
 
+//Recebe o saldo!
+int receberSaldo(struct Receita * p){
+  FILE * f;
+    f=fopen("saldo.txt", "r");
+     fscanf(f, "%f", &p->valor);
+
+    fclose(f);
+    return 0;
+}
+//Salva o saldo antes de sair
+int saida(struct Receita * p){
+  FILE * f;
+      f=fopen("saldo.txt","w");
+      fprintf(f, "%.2f", p->valor);
+      fclose(f);
+      return 0;
+}
+
 //Função Main!!!!
 int main(void) {
   int selecionar = 0;
+  struct Receita Receita;
+  receberSaldo(&Receita);
+  //receberSaldo(&Receita);
 
   while(selecionar<5 || selecionar>0 ){
-    struct Receita Receita;
+
     menu();
     puts("Digite sua opção!!!");
     scanf("%d", &selecionar);
 
     if(selecionar == 0){
-      sair();
+      saida(&Receita);
+
       break;
     }
 
@@ -277,7 +306,7 @@ int main(void) {
     }
 
     else if(selecionar == 4){
-      excluir();
+      excluir(&Receita);
     }
 
     else if(selecionar == 5){
@@ -307,3 +336,4 @@ int main(void) {
 */
 
 /* Implementar Senha? */
+
