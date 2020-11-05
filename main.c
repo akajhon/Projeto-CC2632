@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -6,7 +5,6 @@
 #include <unistd.h>
 
 //ZONA DE STRUCTS!!!!!!!!
-
 struct Data{
   int dia;
   int mes;
@@ -18,8 +16,6 @@ struct Receita{
   float valor;
   char categoria[200];
 };
-
-
 //FIM DA ZONA!!!!!!!!!!!
 
 
@@ -31,11 +27,11 @@ puts("Menu de opções\n");
 puts("=================================\n");
 puts("0 - Sair\n"); //ok
 puts("1 - Inserir\n"); //ok
-puts("2 - Relatório\n");
+puts("2 - Relatório\n");//FALTA SÓ ESTA MERDA!!!!!
 puts("3 - Saldo\n"); //ok
 puts("4 - Excluir\n");//ok
 puts("5 - Extrato de todas as movimentações\n"); //ok
-puts("6 - Buscar um registro específico");
+puts("6 - Buscar um registro específico");//ok
 puts("=================================\n");
 }
 
@@ -247,9 +243,43 @@ void extrato(){
   sleep(1);
 }
 
+
 //Função de busca!!!
 void busca(){
-
+    char categoria[200];
+    char data[15];
+    int i = 0, j = 0;
+    char aux[500][20];
+    puts("Digite a data do registro que deseja encontrar: (dd/mm/aa)");
+    scanf("%s",data);
+    puts("");
+    puts("Digite a categoria do registro que deseja encontrar: (moradia, alimentacao, lazer, transporte, estudos, compras, trabalho)");
+    scanf("%s",categoria);
+    puts("");
+    FILE *arq;
+    arq = fopen("extrato.txt","r");
+    while( fgets(aux[i],20 , arq) != NULL ){
+    i++;
+    }
+    fclose(arq);
+    for(j=0;j!=i;j++){
+      if (strstr(aux[j],data) != NULL){
+        if (strstr(aux[j+1],categoria) != NULL){
+        puts("Registro encontrado:");
+        puts("=================================");
+        printf("Categoria: %s", aux[j+1]);
+        printf("Valor: %s", aux[j+2]);
+        printf("Data: %s", aux[j]);
+        puts("=================================");
+        puts("");
+        }
+      else{
+        puts("=================================");
+        puts("Registro não encontrado!");
+        puts("=================================");
+      }
+    }
+  }
 }
 
 //Recebe o saldo!
@@ -285,7 +315,8 @@ int main(void) {
 
     if(selecionar == 0){
       saida(&Receita);
-
+      puts("Saindo...");
+      puts("Obrigado por utilizar nosso sistema!");
       break;
     }
 
@@ -323,17 +354,3 @@ int main(void) {
   }
   return 0;
 }
-
-/*
-  Escolha sua categoria:
-  1 - moradia
-  2 - alimentacao
-  3 - lazer
-  4 - transporte
-  5 - estudos
-  6 - compras
-  7 - trabalho
-*/
-
-/* Implementar Senha? */
-
