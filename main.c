@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -19,30 +20,30 @@ struct Receita{
 //FIM DA ZONA!!!!!!!!!!!
 
 
-//Fun��o para o menu aparecer!!!
+//Função para o menu aparecer!!!
 void menu(void){
 puts("");
 puts("=================================\n");
-puts("Menu de op��es\n");
+puts("Menu de opções\n");
 puts("=================================\n");
 puts("0 - Sair\n"); //ok
 puts("1 - Inserir\n"); //ok
-puts("2 - Relat�rio\n");//FALTA S� ESTA MERDA!!!!!
+puts("2 - Relatório\n");//FALTA SÓ ESTA MERDA!!!!!
 puts("3 - Saldo\n"); //ok
 puts("4 - Excluir\n");//ok
-puts("5 - Extrato de todas as movimenta��es\n"); //ok
-puts("6 - Buscar um registro espec�fico");//ok
+puts("5 - Extrato de todas as movimentações\n"); //ok
+puts("6 - Buscar um registro específico");//ok
 puts("=================================\n");
 }
 
-//Fun��o para sair do programa
+//Função para sair do programa
 int sair(){
   puts("Saindo...");
   puts("Obrigado por utilizar nosso sistema!");
   return 0;
 }
 
-//Fun��o de inser��o
+//Função de inserção
 int inserir(struct Receita * p){
   int op;
   struct Receita Receita;
@@ -52,16 +53,16 @@ int inserir(struct Receita * p){
   puts("Insira");
   puts("1 - Gasto");
   puts("2 - Receita");
-  printf("Opc�o: ");
+  printf("Opcão: ");
   scanf(" %d", &op);
   puts(" ");
 
-  //la�o pro menu do inserir
+  //laço pro menu do inserir
   while(op > 2 || op < 1){
-    puts("N�mero inv�lido! Tente Novamente...");
+    puts("Número inválido! Tente Novamente...");
     scanf("%d", &op);
   }
-  //Condi��o dos gastos
+  //Condição dos gastos
   if ( op == 1){
     puts("Digite o valor do gasto:");
     scanf("%f", &Gasto.valor);
@@ -69,7 +70,7 @@ int inserir(struct Receita * p){
     scanf("%d/%d/%d", &DataGasto.dia, &DataGasto.mes, &DataGasto.ano);
 
     while ((DataGasto.dia <= 0 || DataGasto.dia >= 32) || (DataGasto.mes <= 0 || DataGasto.mes >= 13) || (DataGasto.ano <= 0)) {
-            puts("Data inv�lida! Tente novamente...");
+            puts("Data inválida! Tente novamente...");
             scanf("%d/%d/%d", &DataGasto.dia, &DataGasto.mes, &DataGasto.ano);
         }
 
@@ -77,7 +78,7 @@ int inserir(struct Receita * p){
     scanf("%s", Gasto.categoria);
 
       while ((strcmp(Gasto.categoria, "moradia") != 0) && (strcmp(Gasto.categoria, "alimentacao") != 0) && (strcmp(Gasto.categoria, "lazer") != 0) && (strcmp(Gasto.categoria, "transporte") != 0) && (strcmp(Gasto.categoria, "estudos") != 0) && (strcmp(Gasto.categoria, "compras") != 0) && (strcmp(Gasto.categoria, "trabalho") != 0)){
-            puts("Categoria inv�lida! Tente novamente...");
+            puts("Categoria inválida! Tente novamente...");
             scanf("%s", Gasto.categoria);
       }
     puts(" ");
@@ -99,21 +100,21 @@ int inserir(struct Receita * p){
     puts("===============================");
   }
 
-  //Condi��o pra receita
+  //Condição pra receita
   else if (op == 2) {
     puts("Digite o valor da Receita:");
     scanf("%f", &Receita.valor);
     puts("Digite a data(dd/mm/aa):");
     scanf("%d/%d/%d", &DataReceita.dia, &DataReceita.mes, &DataReceita.ano);
       while ((DataReceita.dia <= 0 || DataReceita.dia >= 32) || (DataReceita.mes <= 0 || DataReceita.mes >= 13) || (DataReceita.ano <= 0)) {
-            puts("Data inv�lida! Tente novamente...");
+            puts("Data inválida! Tente novamente...");
             scanf("%d/%d/%d", &DataReceita.dia, &DataReceita.mes, &DataReceita.ano);
         }
-    puts("Digite a categoria: (moradia, alimenta��o, lazer, transporte, estudos, compras, trabalho)");
+    puts("Digite a categoria: (moradia, alimentação, lazer, transporte, estudos, compras, trabalho)");
     scanf("%s", Receita.categoria);
 
-      while ((strcmp(Receita.categoria, "moradia") != 0) && (strcmp(Receita.categoria, "alimenta��o") != 0) && (strcmp(Receita.categoria, "lazer") != 0) && (strcmp(Receita.categoria, "transporte") != 0) && (strcmp(Receita.categoria, "estudos") != 0) && (strcmp(Receita.categoria, "compras") != 0) && (strcmp(Receita.categoria, "trabalho") != 0)){
-            puts("Categoria inv�lida! Tente novamente...");
+      while ((strcmp(Receita.categoria, "moradia") != 0) && (strcmp(Receita.categoria, "alimentação") != 0) && (strcmp(Receita.categoria, "lazer") != 0) && (strcmp(Receita.categoria, "transporte") != 0) && (strcmp(Receita.categoria, "estudos") != 0) && (strcmp(Receita.categoria, "compras") != 0) && (strcmp(Receita.categoria, "trabalho") != 0)){
+            puts("Categoria inválida! Tente novamente...");
             scanf("%s", Receita.categoria);
     }
     puts(" ");
@@ -137,18 +138,26 @@ int inserir(struct Receita * p){
   return 0;
 }
 
-//Fun��o para o relatorio
+//Função para o relatorio
 int relatorio(){
-  puts("Relat�rio Pronto!");
+    int i=-1542;
+  FILE * f;
+  f=fopen("relatorio_mensal.html","w");
+  fprintf(f, "<html><head><style>body {position: relative;top: 20%;left: 400px;width: 100%;text-align: center;}</style><script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script><script type='text/javascript'>google.charts.load('current', {'packages':['bar']});google.charts.setOnLoadCallback(drawChart);function drawChart() {var data = google.visualization.arrayToDataTable([['Categorias', 'Valor Gasto no Mês'],['Moradia',");
+  fprintf(f,"%d",i);
+  fprintf(f,"],['Alimentação', 1300],['Lazer',800],['Transporte',700],['Estudos',300],['Compras',200],['Trabalho',100]]);var options = {chart: {title: 'Relatório Mensal',subtitle: 'Relatório de movimentações para cada categoria do ́ultimo mês',}};var chart = new google.charts.Bar(document.getElementById('columnchart_material'));chart.draw(data, google.charts.Bar.convertOptions(options));}</script></head><body><div id='columnchart_material' style='width: 800px; height: 500px;''></div></body></html>");
+  fclose(f);
+  puts("Relatório Pronto!");
   sleep(1);
   return 0;
 }
 
-//Fun��o para excluir um registro
+//Função para excluir um registro
 int excluir(struct Receita * p){
   puts("");
   int op;
   puts("Voce deseja remover um registro ou todos os dados?");
+  puts("0 - Voltar ao Menu");
   puts("1 - Apenas 1 Registro");
   puts("2 - Todos os Dados");
   printf("Opcao: ");
@@ -196,16 +205,16 @@ int excluir(struct Receita * p){
                 fprintf(arq2, "%s", aux[k]);
               }
               fclose(arq2);
-              puts("Registro exclu�do com sucesso!!!");
+              puts("Registro excluído com sucesso!!!");
               p->valor=p->valor-valor;
 
         }
         else if(strcmp(conf,"n") == 0){
-          puts("Buscando outro registro na data informada...Caso nenhum seja encontrado, voc� retornar� ao menu...\n");
+          puts("Buscando outro registro na data informada...Caso nenhum seja encontrado, você retornará ao menu...\n");
           sleep(2);
         }
         else{
-          puts("Comando inv�lido, voltando ao menu...");
+          puts("Comando inválido, voltando ao menu...");
           sleep(2);
           break;
         }
@@ -216,22 +225,29 @@ int excluir(struct Receita * p){
   }
   else if (op==2){
     remove("extrato.txt");
+    p->valor=0;
     puts("=================================");
     puts("Excluindo...");
-    puts("Todos os Dados foram exclu�dos com sucesso!");
+    puts("Todos os Dados foram excluídos com sucesso!");
   }
   sleep(1);
   return 0;
+  if(op==0){
+    puts("=================================");
+    puts("Voltando ao menu!!!");
+    sleep(1);
+    return 0;
+  }
 }
 
-//Fun��o para fazer seu extrato
+//Função para fazer seu extrato
 void extrato(){
   char categoria[200];
   char data[15];
   float saldo;
   int i=0;
   puts("");
-  puts("Extrato de todas as movimenta��es:");
+  puts("Extrato de todas as movimentações:");
   FILE * f;
   f = fopen("extrato.txt", "r");
   while (fscanf(f, "%s %s %f", categoria, data, &saldo) != EOF){
@@ -244,7 +260,7 @@ void extrato(){
 }
 
 
-//Fun��o de busca!!!
+//Função de busca!!!
 void busca(){
     char categoria[200];
     char data[15];
@@ -275,7 +291,7 @@ void busca(){
         }
       else{
         puts("=================================");
-        puts("Registro n�o encontrado!");
+        puts("Registro não encontrado!");
         puts("=================================");
       }
     }
@@ -300,7 +316,7 @@ int saida(struct Receita * p){
       return 0;
 }
 
-//Fun��o Main!!!!
+//Função Main!!!!
 int main(void) {
   int selecionar = 0;
   struct Receita Receita;
@@ -310,7 +326,7 @@ int main(void) {
   while(selecionar<5 || selecionar>0 ){
 
     menu();
-    puts("Digite sua op��o!!!");
+    puts("Digite sua opção!!!");
     scanf("%d", &selecionar);
 
     if(selecionar == 0){
@@ -334,6 +350,7 @@ int main(void) {
       s = Receita.valor;
       puts("=================================");
       printf("Saldo Atual: R$ %.2f",s);
+      sleep(1);
     }
 
     else if(selecionar == 4){
@@ -349,8 +366,27 @@ int main(void) {
     }
 
     else if (selecionar>6 || selecionar<0 ){
-      puts("N�mero Invalido, tente outro!!!");
+      puts("Número Invalido, tente outro!!!");
     }
   }
   return 0;
 }
+
+/*   ██░▀██████████████▀░██
+   █▌▒▒░████████████░▒▒▐█
+   █░▒▒▒░██████████░▒▒▒░█
+   ▌░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▐
+   ░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░
+███▀▀▀██▄▒▒▒▒▒▒▒▄██▀▀▀██
+██░░░▐█░▀█▒▒▒▒▒█▀░█▌░░░█
+▐▌░░░▐▄▌░▐▌▒▒▒▐▌░▐▄▌░░▐▌
+   █░░░▐█▌░░▌▒▒▒▐░░▐█▌░░█
+   ▒▀▄▄▄█▄▄▄▌░▄░▐▄▄▄█▄▄▀▒
+   ░░░░░░░░░░└┴┘░░░░░░░░░
+   ██▄▄░░░░░░░░░░░░░░▄▄██
+   ████████▒▒▒▒▒▒████████
+   █▀░░███▒▒░░▒░░▒▀██████
+   █▒░███▒▒╖░░╥░░╓▒▐█████
+   █▒░▀▀▀░░║░░║░░║░░█████
+   ██▄▄▄▄▀▀┴┴╚╧╧╝╧╧╝┴┴███
+   ██████████████████████*/
