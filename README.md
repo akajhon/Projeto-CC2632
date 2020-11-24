@@ -54,9 +54,9 @@ Por fim, ao escolher a opção 6, o usuário tem a possibilidade de encontrar um
 ![](./images/op6.png)
 ## Desenvolvedores
 
-João Pedro Rosa Cezarino – [@Rosa_jaoc](https://twitter.com/@Rosa_jaoc) – [_akajhon](https://instagram.com/@_akajhon) - jp_2602@hotmail.com
+João Pedro Rosa Cezarino – [@Rosa_jaoc](https://twitter.com/@Rosa_jaoc) – [@_akajhon](https://instagram.com/_akajhon) - jp_2602@hotmail.com
 
-Vítor Martins Oliveira - [@Vihmartiinss](https://twitter.com/@Vihmartiinss)– [vitinho.mrt](https://instagram.com/@vitinho.mrt) - vihmar2002@hotmail.com
+Vítor Martins Oliveira - [@Vihmartiinss](https://twitter.com/@Vihmartiinss)– [@vitinho.mrt](https://instagram.com/vitinho.mrt) - vihmar2002@hotmail.com
 
 [https://github.com/akajhon/Projeto-CC2632](https://github.com/akajhon/)
 
