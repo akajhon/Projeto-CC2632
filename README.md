@@ -1,12 +1,14 @@
 # Projeto de CC2632 
 > Gerenciador Financeiro em C
 
-[![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
 Gerenciador Financeiro proposto como trabalho para a disciplina de Desenvolvimento de Algoritmos(CC2632) no 2° semestre do curso de ciências da computação da FEI.
 Projeto totalmente desenvolvido na linguagem C, pelos alunos João Pedro Rosa Cezarino e Vítor Martins Oliveira.
+
+```sh
 Lembre-se de sempre criar o arquivo "saldo.txt" antes de rodar o código principal!!!
+```
 
 ![](./images/img1.png)
 
@@ -68,6 +70,7 @@ Qualquer dúvida entre em contato!
 4. _Push_ (`git push origin feature/fooBar`)
 5. Crie um novo _Pull Request_
 
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
+[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/datadog-metrics
+[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
 [wiki]: https://github.com/akajhon/Projeto-CC2632
