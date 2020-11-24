@@ -26,13 +26,13 @@ puts("");
 puts("=================================\n");
 puts("Menu de opções\n");
 puts("=================================\n");
-puts("0 - Sair\n"); //ok
-puts("1 - Inserir\n"); //ok
-puts("2 - Relatório\n");//ok
-puts("3 - Saldo\n"); //ok
-puts("4 - Excluir\n");//ok
-puts("5 - Extrato de todas as movimentações\n"); //ok
-puts("6 - Buscar um registro específico");//ok
+puts("0 - Sair\n");
+puts("1 - Inserir\n");
+puts("2 - Relatório\n");
+puts("3 - Saldo\n");
+puts("4 - Excluir\n");
+puts("5 - Extrato de todas as movimentações\n");
+puts("6 - Buscar um registro específico");
 puts("=================================\n");
 }
 
@@ -45,6 +45,7 @@ int sair(){
 
 //Função de inserção
 int inserir(struct Receita * p){
+  char dataaa[50];
   int op;
   struct Receita Receita;
   struct Data DataReceita;
@@ -65,9 +66,11 @@ int inserir(struct Receita * p){
   //Condição dos gastos
   if ( op == 1){
     puts("Digite o valor do gasto:");
-    scanf("%f", &Gasto.valor);
+    scanf("%f", &Gasto.valor);07
     puts("Digite a data(dd/mm/aa):");
     scanf("%d/%d/%d", &DataGasto.dia, &DataGasto.mes, &DataGasto.ano);
+    puts("Digite a data novamente(dd/mm/aa):");
+    scanf("%s",dataaa);
 
     while ((DataGasto.dia <= 0 || DataGasto.dia >= 32) || (DataGasto.mes <= 0 || DataGasto.mes >= 13) || (DataGasto.ano <= 0)) {
             puts("Data inválida! Tente novamente...");
@@ -90,7 +93,7 @@ int inserir(struct Receita * p){
     //Fim dos ponteiros
     FILE * f;
     f=fopen("extrato.txt", "a");
-    fprintf(f,"%d/%d/%d\n", p->data.dia, p->data.mes, p->data.ano);
+    fprintf(f,"%s\n", dataaa);
     fprintf(f, "%s\n",Gasto.categoria);
     fprintf(f,"%.2f\n",-1*Gasto.valor);
     fclose(f);
@@ -106,9 +109,13 @@ int inserir(struct Receita * p){
     scanf("%f", &Receita.valor);
     puts("Digite a data(dd/mm/aa):");
     scanf("%d/%d/%d", &DataReceita.dia, &DataReceita.mes, &DataReceita.ano);
+    puts("Digite a data novammente (dd/mm/aa):");
+    scanf("%s",dataaa);
       while ((DataReceita.dia <= 0 || DataReceita.dia >= 32) || (DataReceita.mes <= 0 || DataReceita.mes >= 13) || (DataReceita.ano <= 0)) {
             puts("Data inválida! Tente novamente...");
             scanf("%d/%d/%d", &DataReceita.dia, &DataReceita.mes, &DataReceita.ano);
+            puts("Digite a data novammente (dd/mm/aa):");
+            scanf("%s",dataaa);
         }
     puts("Digite a categoria: (moradia, alimentação, lazer, transporte, estudos, compras, trabalho)");
     scanf("%s", Receita.categoria);
@@ -124,12 +131,14 @@ int inserir(struct Receita * p){
     p->data.mes = DataReceita.mes;
     p->data.ano = DataReceita.ano;
     //Fim dos ponteiros
+
     FILE * f;
     f=fopen("extrato.txt", "a");
-    fprintf(f,"%d/%d/%d\n", p->data.dia, p->data.mes, p->data.ano);
+    fprintf(f,"%s\n", dataaa);
     fprintf(f, "%s\n",Receita.categoria);
     fprintf(f,"%.2f\n",Receita.valor);
     fclose(f);
+
 
     puts("Receita registrada com sucesso!");
     puts("=================================");
@@ -225,8 +234,7 @@ int relatorio(){
 
     }
   }
-
- FILE *f;
+   FILE *f;
   f=fopen("relatorio_mensal.html","w");
   fprintf(f, "<html><head><style>body {position: relative;top: 20%;left: 400px;width: 100%;text-align: center;}</style><script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script><script type='text/javascript'>google.charts.load('current', {'packages':['bar']});google.charts.setOnLoadCallback(drawChart);function drawChart() {var data = google.visualization.arrayToDataTable([['Categorias', 'Valor Gasto no Mês'],['Moradia',");
   fprintf(f,"%f",moradia);
@@ -244,15 +252,81 @@ int relatorio(){
   fprintf(f,"%f",trabalho);
   fprintf(f,"]]);var options = {chart: {title: 'Relatório Mensal',subtitle: 'Relatório de movimentações para cada categoria do ́ultimo mês',}};var chart = new google.charts.Bar(document.getElementById('columnchart_material'));chart.draw(data, google.charts.Bar.convertOptions(options));}</script></head><body><div id='columnchart_material' style='width: 800px; height: 500px;''></div></body></html>");
   fclose(f);
-
-
-  puts("\nRelatório Pronto");
+  puts("Relatório pronto!");
   return 0;
   }
 
   //Relatorio dos ultimos 12 meses
   else if(op == 2){
+    puts("Digite o ano(aa):");
+    scanf("%d", &dataAno);
+    puts("=================================");
 
+    FILE *arq;
+
+    arq = fopen("extrato.txt","r");
+
+
+  //Puxa pra RAM
+    while( fgets(aux[i] ,20 , arq) != NULL ){
+      i++;
+    }
+    fclose(arq);
+
+    for(j=0; j!=i; j++){
+
+
+    auxano[0] = aux[j][6];
+    auxano[1] = aux[j][7];
+    auxano[2] = '\0';
+
+    ano = atof(auxano);
+
+
+    if(ano==dataAno){
+      if (strstr(aux[j+1],moradiaS) != NULL){
+        moradia = moradia + atof(aux[j+2]);
+      }
+      if (strstr(aux[j+1],alimentacaoS) != NULL){
+        alimentacao = alimentacao + atof(aux[j+2]);
+      }
+      if (strstr(aux[j+1],lazerS) != NULL){
+        lazer = lazer + atof(aux[j+2]);
+      }
+      if (strstr(aux[j+1],trasnporteS) != NULL){
+        transporte = transporte + atof(aux[j+2]);
+      }
+      if (strstr(aux[j+1],estudoS) != NULL){
+        estudos = estudos + atof(aux[j+2]);
+      }
+      if (strstr(aux[j+1],comprasS) != NULL){
+        compras = compras + atof(aux[j+2]);
+      }
+      if (strstr(aux[j+1],trabalhoS) != NULL){
+        trabalho = trabalho + atof(aux[j+2]);
+      }
+
+    }
+  }
+  FILE *f;
+  f=fopen("relatorio_anual.html","w");
+  fprintf(f, "<html><head><style>body {position: relative;top: 20%;left: 400px;width: 100%;text-align: center;}</style><script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script><script type='text/javascript'>google.charts.load('current', {'packages':['bar']});google.charts.setOnLoadCallback(drawChart);function drawChart() {var data = google.visualization.arrayToDataTable([['Categorias', 'Valor Gasto no Ano'],['Moradia',");
+  fprintf(f,"%f",moradia);
+  fprintf(f,"],['Alimentação',");
+  fprintf(f,"%f",alimentacao);
+  fprintf(f,",],['Lazer',");
+  fprintf(f,"%f",lazer);
+  fprintf(f,"],['Transporte',");
+  fprintf(f,"%f",transporte);
+  fprintf(f,"],['Estudos',");
+  fprintf(f,"%f",estudos);
+  fprintf(f,"],['Compras',");
+  fprintf(f,"%f",compras);
+  fprintf(f,"],['Trabalho',");
+  fprintf(f,"%f",trabalho);
+  fprintf(f,"]]);var options = {chart: {title: 'Relatório Anual',subtitle: 'Relatório de movimentações para cada categoria do ́ultimo ano',}};var chart = new google.charts.Bar(document.getElementById('columnchart_material'));chart.draw(data, google.charts.Bar.convertOptions(options));}</script></head><body><div id='columnchart_material' style='width: 800px; height: 500px;''></div></body></html>");
+  fclose(f);
+  puts("Relatório pronto!");
   }
 
   else if(op == 0){
@@ -371,7 +445,7 @@ void extrato(){
   f = fopen("extrato.txt", "r");
   while (fscanf(f, "%s %s %f", categoria, data, &saldo) != EOF){
     puts("=================================");
-    printf("Data: %s\nCategoria: %s\nValor: R$%.2f\n",data,categoria,saldo );
+    printf("Categoria: %s\nData: %s\nValor: R$%.2f\n",data,categoria,saldo );
     puts("=================================");
   i++;
   }
@@ -490,3 +564,4 @@ int main(void) {
   }
   return 0;
 }
+
